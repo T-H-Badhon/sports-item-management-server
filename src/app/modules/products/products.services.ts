@@ -1,6 +1,7 @@
 import { Types } from 'mongoose'
 import { TProduct } from './products.interfaces'
 import { Product } from './products.model'
+import { queryFilter } from './products.utilities'
 
 const addProduct = async (productData: TProduct, id: Types.ObjectId) => {
   productData.addedBy = id
@@ -11,7 +12,19 @@ const addProduct = async (productData: TProduct, id: Types.ObjectId) => {
 }
 
 const getProducts = async (query: Record<string, unknown>) => {
-  console.log(query)
+  if (query.searchTerm) {
+    const products = await Product.find({
+      name: { $regex: query.searchTerm, $options: 'i' },
+    })
+
+    return products
+  }
+
+  const filter = queryFilter(query)
+
+  const products = await Product.find(filter)
+
+  return products
 }
 
 const deleteOne = async (id: string) => {
@@ -20,9 +33,8 @@ const deleteOne = async (id: string) => {
   return result
 }
 
-const deleteMarked = async (ids: { ids: [Types.ObjectId] }) => {
+const deleteProducts = async (ids: { ids: [Types.ObjectId] }) => {
   const result = await Product.deleteMany({ _id: { $in: ids } })
-  console.log(result)
 
   return result
 }
@@ -31,5 +43,5 @@ export const productServices = {
   addProduct,
   getProducts,
   deleteOne,
-  deleteMarked,
+  deleteProducts,
 }

@@ -2,9 +2,9 @@ import { z } from 'zod'
 
 const saleValidationSchema = z.object({
   body: z.object({
-    quantity: z.number(),
+    sellQuantity: z.number(),
     buyerName: z.string(),
-    date: z.date(),
+    date: z.string(),
   }),
 })
 

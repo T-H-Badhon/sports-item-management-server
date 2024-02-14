@@ -14,6 +14,5 @@ router.post(
 )
 
 router.get('/', auth(), productControllers.getProduct)
-router.delete('/delete-marked', auth(), productControllers.deleteMarked) // user just marks products and seleted products ids are added to deleteIdsArray automatically . So , I feel no need to validate this array
-router.delete('/:productId', auth(), productControllers.deleteOne)
+router.delete('/delete', auth(), productControllers.deleteProducts) // user just marks products and seleted products ids are added to deleteIdsArray automatically . So , I feel no need to validate this array
 export const productRoutes = router

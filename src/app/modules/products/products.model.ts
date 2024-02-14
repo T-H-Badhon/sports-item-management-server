@@ -33,11 +33,11 @@ const productSchema = new Schema({
     required: true,
   },
   condition: {
-    enum: ['new', 'used'],
+    type: String,
+    required: true,
   },
   weight: {
     type: Number,
-    required: true,
   },
   addedBy: {
     type: Schema.Types.ObjectId,

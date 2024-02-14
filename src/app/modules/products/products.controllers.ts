@@ -35,9 +35,10 @@ const deleteOne = catchAsync(async (req: Request, res: Response) => {
     data: result,
   })
 })
-const deleteMarked = catchAsync(async (req: Request, res: Response) => {
-  const { ids } = req.body
-  const result = await productServices.deleteMarked(ids)
+const deleteProducts = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.body
+
+  const result = await productServices.deleteProducts(id)
   response(res, {
     success: true,
     statusCode: 201,
@@ -50,5 +51,5 @@ export const productControllers = {
   addProduct,
   getProduct,
   deleteOne,
-  deleteMarked,
+  deleteProducts,
 }
